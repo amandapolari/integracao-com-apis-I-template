@@ -70,7 +70,7 @@ function App() {
                     API Labenusers
                 </a>
             </p>
-            <AddUsuario />
+            <AddUsuario allUsersApi={allUsersApi} />
             <hr />
             {usuarios.map((usuario) => {
                 return <Usuario key={usuario.id} usuario={usuario} />;
