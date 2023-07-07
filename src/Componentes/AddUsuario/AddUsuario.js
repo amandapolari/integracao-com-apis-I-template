@@ -1,8 +1,38 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 
 function AddUsuario(props) {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
+
+    const addUser = () => {
+        const headers = {
+            headers: {
+                Authorization: 'amanda-polari-easley',
+            },
+        };
+
+        const body = {
+            name: nome,
+            email: email,
+        };
+
+        axios
+            .post(
+                `https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users`,
+                body,
+                headers
+            )
+            .then((resp) => {
+                console.log('Sucesso na criação do usuário', resp);
+                props.allUsersApi();
+                setNome('');
+                setEmail('');
+            })
+            .catch((err) => {
+                console.log('Erro na criação do usuário', err.message);
+            });
+    };
 
     return (
         <>
@@ -22,7 +52,13 @@ function AddUsuario(props) {
                     setEmail(e.target.value);
                 }}
             />
-            <button>Enviar</button>
+            <button
+                onClick={() => {
+                    addUser();
+                }}
+            >
+                Enviar
+            </button>
         </>
     );
 }

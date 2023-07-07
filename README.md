@@ -5,6 +5,7 @@
 -   [1. Configurações iniciais](#1-configurações-iniciais)
 -   [2. Prática 1](#2-prática-1-mudar-a-origem-dos-dados)
 -   [3. Prática 2](#3-prática-2-receber-novos-dados)
+-   [4. Prática 3](#4-prática-3-adicionar-usuário)
 
 ## 1. Configurações iniciais
 
@@ -182,3 +183,56 @@
 
 ---
 
+## 4. Prática 3: Adicionar usuário
+
+### Enunciado:
+
+-   Neste passo iremos adicionar um novo usuário. Veja na documentação, quais os dados são solicitados para que seja feito o cadastro de um novo usuário. Crie os elementos e estados necessários e uma função para adicionar o novo usuário.
+
+### Minha Resolução:
+
+-   Para isso iremos precisar utilizar o endpoint: `createUser`;
+
+-   Esse endpoint requer `headers` e `body`
+
+-   Para o `headers` iremos usar a mesma estrutura da prática 1
+
+-   Para o `body` as coisas vão mudar um pouquinho: Os dados virão dos inputs controlados `nome` e `email`
+
+-   O código ficará estruturado da seguinte forma:
+
+    ```
+    const [nome, setNome] = useState('');
+    const [email, setEmail] = useState('');
+
+    const addUser = () => {
+        const headers = {
+            headers: {
+                Authorization: 'amanda-polari-easley',
+            },
+        };
+
+        const body = {
+            name: nome,
+            email: email,
+        };
+
+        axios
+            .post(
+                `https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users`,
+                body,
+                headers
+            )
+            .then((resp) => {
+                console.log('Sucesso na criação do usuário', resp);
+                props.allUsersApi();
+                setNome('');
+                setEmail('');
+            })
+            .catch((err) => {
+                console.log('Erro na criação do usuário', err.message);
+            });
+    };
+    ```
+
+---

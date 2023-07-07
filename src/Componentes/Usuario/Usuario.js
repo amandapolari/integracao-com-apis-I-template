@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -32,11 +33,11 @@ function Usuario(props) {
                 headers
             )
             .then((resp) => {
-                console.log('suceso', resp);
+                // console.log('suceso', resp);
                 setUsuario(resp.data);
             })
             .catch((err) => {
-                console.log(err.message);
+                // console.log(err.message);
             });
     };
 
