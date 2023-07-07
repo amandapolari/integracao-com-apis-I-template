@@ -1,5 +1,25 @@
-Template - Inputs controlados
+# Integração de APIs I - Template
 
-Você pode usar este repositório como template, baixando e rodando npm install na pasta correspondente, ou utilizar o Codesandbox.
+API utilizada: [Labenusers](https://documenter.getpostman.com/view/7549981/SzfCT5G2#intro)
 
-https://codesandbox.io/s/integracao-api-template-ku0uhf
+## Indice
+
+-   [1. Explicando a API](#1-explicando-a-api)
+-   [2. Prática 1](#2-prática-1-mudar-a-origem-dos-dados)
+
+## 1. Explicando a API
+
+-   Esta API permite:
+
+    -   Receber listas de usuários cadastrados
+    -   Pesquisar usuários específicos
+    -   Criação de usuário
+    -   Edição de usuário
+    -   Remoção de usuário
+
+## 2. Prática 1: Mudar a origem dos dados:
+
+-   No template, estamos usando dados mockados, vindos de um array que está declarado no próprio arquivo. Modifique o `App.js` para que ele receba o array de usuários da API. Para isso iremos precisar utilizar o endpoint que retorne a lista de todos os usuários cadastrados no banco de dados: `getAllUsers`
+
+---
+
