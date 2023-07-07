@@ -7,6 +7,7 @@
 -   [3. Prática 2](#3-prática-2-receber-novos-dados)
 -   [4. Prática 3](#4-prática-3-adicionar-usuário)
 -   [5. Fixação 1](#5-fixação-1-modificar-dados)
+-   [6. Fixação 2](#6-fixação-2-deletar-dados)
 
 ## 1. Configurações iniciais
 
@@ -126,11 +127,11 @@
 
 -   Para este caso vamos utilizar o endpooint `getUserById`, pois segundo a documentação da API: _"Esta requisição permite visualizar as informações de um usuário (name e email)"_
 
--   Esse endpoint requer `headers` e `Path Param`
+-   Esse endpoint requer `headers` e `path param`
 
 -   Para o `headers` iremos usar a mesma estrutura da prática 1
 
--   Para o `Path Param` as coisas vão mudar um pouquinho
+-   Para o `path param` as coisas vão mudar um pouquinho
 
 -   Essa alteração será feita em `Usuario.js`, mas para isso precisamos entender as props passadas para esse componente ainda no `App.js`:
 
@@ -289,4 +290,64 @@
 
     -   No `then` é preciso chamar a `allUsersApi` para renderizar na tela novamente os usuários já modificados. E a `setEditar(false)` é usada para fechar a aba de edição
 
+    -   Importante:
+        -   No momento de chamar a função `editUser` é preciso passar o argumento `id` para a função, que no caso é `props.usuario.id`, ficando estruturado da seguinte forma no código:
+            ```
+            <button
+                        onClick={() => {
+                            editUser(props.usuario.id);
+                        }}
+                    >
+                        Enviar alterações
+            </button>
+            ```
+
 ---
+
+## 6. Fixação 2: Deletar dados
+
+### Enunciado:
+
+-   Veja na documentação como funciona o endpoint para apagar um usuário. Quais dados são necessários? Como esse endpoint recebe eles? Crie uma função que recebe estes dados (e os elementos necessários) e faça a requisição
+
+### Minha Resolução:
+
+-   Para isso iremos precisar utilizar o endpoint: `deleteUser`
+
+-   Esse endpoint requer `headers` e `path param`
+
+-   Para todos eles iremos utilizar as estruturas já utilizadas anteriormente
+
+-   A código ficou estruturado da seguinte maneira:
+
+    -   Requisição:
+
+        ```
+        const deleteUsers = (id) => {
+        axios
+            .delete(
+                `https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users/${id}`,
+                headers
+            )
+            .then((resp) => {
+                // console.log('sucesso na deleção', resp);
+                props.allUsersApi();
+            })
+            .catch((err) => {
+                // console.log('falha na deleção', err);
+            });
+        };
+
+        ```
+
+    -   Importante:
+        -   No momento de chamar a função `deleteUsers` é preciso passar o argumento `id` para a função, que no caso é `props.usuario.id`, ficando estruturado da seguinte forma no código:
+            ```
+            <button
+                    onClick={() => {
+                        deleteUsers(props.usuario.id);
+                    }}
+                >
+                    Excluir
+            </button>
+            ```

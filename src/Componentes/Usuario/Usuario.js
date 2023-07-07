@@ -60,6 +60,21 @@ function Usuario(props) {
             });
     };
 
+    const deleteUsers = (id) => {
+        axios
+            .delete(
+                `https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users/${id}`,
+                headers
+            )
+            .then((resp) => {
+                // console.log('sucesso na deleção', resp);
+                props.allUsersApi();
+            })
+            .catch((err) => {
+                // console.log('falha na deleção', err);
+            });
+    };
+
     return (
         <User>
             {editar ? (
@@ -93,7 +108,13 @@ function Usuario(props) {
                 </>
             )}
             <button onClick={() => setEditar(!editar)}>Editar</button>
-            <button>Excluir</button>
+            <button
+                onClick={() => {
+                    deleteUsers(props.usuario.id);
+                }}
+            >
+                Excluir
+            </button>
         </User>
     );
 }
