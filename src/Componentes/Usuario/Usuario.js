@@ -26,6 +26,11 @@ function Usuario(props) {
         },
     };
 
+    const body = {
+        name: nome,
+        email: email,
+    };
+
     const getUserById = (id) => {
         axios
             .get(
@@ -33,11 +38,25 @@ function Usuario(props) {
                 headers
             )
             .then((resp) => {
-                // console.log('suceso', resp);
                 setUsuario(resp.data);
             })
+            .catch((err) => {});
+    };
+
+    const editUser = (id) => {
+        axios
+            .put(
+                `https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users/${id}`,
+                body,
+                headers
+            )
+            .then((resp) => {
+                // console.log('sucesso na edição', resp);
+                props.allUsersApi();
+                setEditar(false);
+            })
             .catch((err) => {
-                // console.log(err.message);
+                // console.log('falha na edição', err);
             });
     };
 
@@ -55,7 +74,13 @@ function Usuario(props) {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
-                    <button>Enviar alterações</button>
+                    <button
+                        onClick={() => {
+                            editUser(props.usuario.id);
+                        }}
+                    >
+                        Enviar alterações
+                    </button>
                 </div>
             ) : (
                 <>

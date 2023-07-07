@@ -24,13 +24,13 @@ function AddUsuario(props) {
                 headers
             )
             .then((resp) => {
-                console.log('Sucesso na criação do usuário', resp);
+                // console.log('Sucesso na criação do usuário', resp);
                 props.allUsersApi();
                 setNome('');
                 setEmail('');
             })
             .catch((err) => {
-                console.log('Erro na criação do usuário', err.message);
+                // console.log('Erro na criação do usuário', err.message);
             });
     };
 

@@ -6,6 +6,7 @@
 -   [2. Prática 1](#2-prática-1-mudar-a-origem-dos-dados)
 -   [3. Prática 2](#3-prática-2-receber-novos-dados)
 -   [4. Prática 3](#4-prática-3-adicionar-usuário)
+-   [5. Fixação 1](#5-fixação-1-modificar-dados)
 
 ## 1. Configurações iniciais
 
@@ -234,5 +235,58 @@
             });
     };
     ```
+
+---
+
+## 5. Fixação 1: Modificar dados
+
+### Enunciado:
+
+-   Agora vamos modificar os dados de um usuário. Procure na documentação qual endpoint adequado para este caso e quais dados precisam ser enviados neste endpoint. Crie um input e função necessária para pegar este valor dado pelo usuário. Crie a função que faz esta requisição com o axios
+
+### Minha Resolução:
+
+-   Para isso iremos precisar utilizar o endpoint: `editUser`
+
+-   Esse endpoint requer `headers`, `path variables` e `body`
+
+-   Para todos eles iremos utilizar as estruturas já utilizadas anteriormente
+
+-   A código ficou estruturado da seguinte maneira:
+
+    -   Requisição:
+
+    ```
+    const headers = {
+        headers: {
+            Authorization: 'amanda-polari-easley',
+        },
+    };
+
+    const body = {
+        name: nome,
+        email: email,
+    };
+
+
+    const editUser = (id) => {
+        axios
+            .put(
+                `https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users/${id}`,
+                body,
+                headers
+            )
+            .then((resp) => {
+                console.log('sucesso na edição', resp);
+                props.allUsersApi();
+                setEditar(false);
+            })
+            .catch((err) => {
+                console.log('falha na edição', err);
+            });
+    };
+    ```
+
+    -   No `then` é preciso chamar a `allUsersApi` para renderizar na tela novamente os usuários já modificados. E a `setEditar(false)` é usada para fechar a aba de edição
 
 ---
