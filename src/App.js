@@ -42,13 +42,13 @@ function App() {
             )
             .then((response) => {
                 //resposta em caso de sucesso
-                console.log(response);
+                // console.log(response);
                 // Em caso de sucesso eu quero que esses dados sejam passados para um estado para que eles possam ser renderizados na tela no map abaixo, e para isso irei setar esse estado com os dados que chegam da API:
                 setUsuarios(response.data);
             })
             .catch((error) => {
                 //resposta em caso de erro
-                console.log(error.response);
+                // console.log(error.response);
             });
     };
 

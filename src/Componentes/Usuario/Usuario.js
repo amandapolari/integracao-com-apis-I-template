@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const User = styled.div`
@@ -7,11 +8,37 @@ const User = styled.div`
     width: 350px;
     padding: 8px;
 `;
+
 function Usuario(props) {
     const [usuario, setUsuario] = useState(props.usuario);
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [editar, setEditar] = useState(false);
+
+    useEffect(() => {
+        getUserById(props.usuario.id);
+    }, []);
+
+    const headers = {
+        headers: {
+            Authorization: 'amanda-polari-easley',
+        },
+    };
+
+    const getUserById = (id) => {
+        axios
+            .get(
+                `https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users/${id}`,
+                headers
+            )
+            .then((resp) => {
+                console.log('suceso', resp);
+                setUsuario(resp.data);
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+    };
 
     return (
         <User>
