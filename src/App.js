@@ -73,7 +73,13 @@ function App() {
             <AddUsuario allUsersApi={allUsersApi} />
             <hr />
             {usuarios.map((usuario) => {
-                return <Usuario key={usuario.id} usuario={usuario} />;
+                return (
+                    <Usuario
+                        key={usuario.id}
+                        usuario={usuario}
+                        allUsersApi={allUsersApi}
+                    />
+                );
             })}
         </>
     );

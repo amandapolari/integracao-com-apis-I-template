@@ -51,6 +51,78 @@ function Usuario(props) {
             });
     };
 
+    // const editUser = (id) => {
+    //   const headers = {
+    //     headers: {
+    //       Authorization: 'amanda-polari-easley'
+    //     }
+    //   }
+
+    //   const body = {
+    //     name: nome,
+    //     email: email
+    //   }
+
+    //   axios.put(`https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users/${id}`, body, headers)
+    //   .then((resposta)=> {
+    //     props.getUserById()
+    //     console.log('sucesso de ediçao', resposta)
+    //   })
+    //   .catch((erro)=> {
+    //     console.log('erro de ediçao', erro)
+    //   })
+    // }
+    const editUser = (id) => {
+        const headers = {
+            headers: {
+                Authorization: 'amanda-polari-easley',
+            },
+        };
+
+        const body = {
+            name: nome,
+            email: email,
+        };
+
+        axios
+            .put(
+                `https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users/${id}`,
+                body,
+                headers
+            )
+            .then((resposta) => {
+                props.allUsersApi();
+                setNome('');
+                setEmail('');
+                setEditar(false);
+                console.log('sucesso de ediçao', resposta);
+            })
+            .catch((erro) => {
+                console.log('erro de ediçao', erro);
+            });
+    };
+
+    const deleteUsers = (id) => {
+        const headers = {
+            headers: {
+                Authorization: 'amanda-polari-easley',
+            },
+        };
+
+        axios
+            .delete(
+                `https://us-central1-labenu-apis.cloudfunctions.net/labenusers/users/${id}`,
+                headers
+            )
+            .then((resposta) => {
+                props.allUsersApils();
+                console.log('sucesso de exclusão', resposta);
+            })
+            .catch((erro) => {
+                console.log('erro de exclusão', erro);
+            });
+    };
+
     return (
         <User>
             {editar ? (
@@ -65,7 +137,13 @@ function Usuario(props) {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
-                    <button>Enviar alterações</button>
+                    <button
+                        onClick={() => {
+                            editUser(usuario.id);
+                        }}
+                    >
+                        Enviar alterações
+                    </button>
                 </div>
             ) : (
                 <>
@@ -78,7 +156,13 @@ function Usuario(props) {
                 </>
             )}
             <button onClick={() => setEditar(!editar)}>Editar</button>
-            <button>Excluir</button>
+            <button
+                onClick={() => {
+                    deleteUsers(usuario.id);
+                }}
+            >
+                Excluir
+            </button>
         </User>
     );
 }
